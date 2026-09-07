@@ -64,9 +64,12 @@ enum FileType {
 
 fn parse_url(url: &Url) -> Result<(PathBuf, FileType)> {
     // get last segment of path
+    // we have to trim trailing slashes
     let path_seg = url
-        .path_segments()
-        .and_then(|mut iter| iter.next_back())
+        .path()
+        .trim_end_matches('/')
+        .split('/')
+        .next_back()
         .ok_or_else(|| anyhow!("couldnt extract file path from: {}", url))?;
 
     // split last segment into filename and type
