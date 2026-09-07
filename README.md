@@ -28,3 +28,13 @@ rget https://example.com/archive.tar.gz
 And that's it, `cd` into `archive` and you're ready to go!
 It downloads the file and picks the appropriate unpack tool depending on the file
 extension. Supports tar, tar.gz and zip!
+
+## Install
+
+Requires `cargo`, and is only tested on Linux!
+
+```bash
+git clone https://github.com/Reza-Darius/rget 
+just install
+```
+
