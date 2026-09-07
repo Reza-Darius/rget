@@ -3,7 +3,7 @@ BIN_PATH := "~/.local/bin/" + BIN_NAME
 ARTIFACT := "./target/release/" + BIN_NAME
 
 install:
-    cargo install --release
+    cargo build --release
     install {{ ARTIFACT }} -D {{ BIN_PATH }}
 
 uninstall:
