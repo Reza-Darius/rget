@@ -31,7 +31,7 @@ extension. Supports tar, tar.gz and zip!
 
 ## Install
 
-Requires `cargo`, and is only tested on Linux!
+Requires `cargo` and `just`, and is only tested on Linux!
 
 ```bash
 git clone https://github.com/Reza-Darius/rget 
