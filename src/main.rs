@@ -62,7 +62,9 @@ enum FileType {
     Zip,
 }
 
-fn parse_url(url: &Url) -> Result<(PathBuf, FileType)> {
+type FileName = PathBuf;
+
+fn parse_url(url: &Url) -> Result<(FileName, FileType)> {
     // get last segment of path
     // we have to trim trailing slashes
     let path_seg = url
@@ -83,12 +85,14 @@ fn parse_url(url: &Url) -> Result<(PathBuf, FileType)> {
         })
         .ok_or_else(|| anyhow!("couldnt split filename: {}", path_seg))?;
 
-    match ext {
-        "tgz" | "tar.gz" => Ok((filename, FileType::TarZ)),
-        "tar" => Ok((filename, FileType::Tar)),
-        "zip" => Ok((filename, FileType::Zip)),
-        _ => Err(anyhow!("unsupported filetype")),
-    }
+    let ftype = match ext {
+        "tgz" | "tar.gz" => FileType::TarZ,
+        "tar" => FileType::Tar,
+        "zip" => FileType::Zip,
+        _ => return Err(anyhow!("unsupported filetype")),
+    };
+
+    Ok((filename, ftype))
 }
 
 fn handle_tar(reader: impl Read, path: impl AsRef<Path>) -> Result<()> {
