@@ -103,9 +103,8 @@ fn handle_tar(reader: impl Read, path: impl AsRef<Path>) -> Result<()> {
 
 fn handle_zip(reader: impl Read + AsRef<[u8]>, path: impl AsRef<Path>) -> Result<()> {
     eprintln!("unzipping file");
-    let cursor = Cursor::new(reader);
 
-    ZipArchive::new(cursor)?
+    ZipArchive::new(Cursor::new(reader))?
         .extract_unwrapped_root_dir(path, root_dir_common_filter)
         .map_err(Into::into)
 }
